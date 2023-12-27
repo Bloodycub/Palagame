@@ -1,0 +1,20 @@
+#800x630 PX
+#270 540 px
+#symbols 45x45
+
+Puzzle Pirates - Urbanman on the Emerald ocean
+
+
+sivu   90px <--   up 77px
+
+bluecircle = (26, 199, 242)
+bluesquare = (34, 102, 210)
+blueoctagon = (152, 216, 251)
+greencircle = (122, 219, 192)
+greenoctagon = (76, 149, 140)
+
+bluecirclewet = (11, 125, 193)
+bluesquarewet = (14, 86, 181)
+blueoctagonwet = (62, 132, 197)
+greencirclewet = (50, 133, 174)
+greenoctagonwet = (31, 105, 153)
