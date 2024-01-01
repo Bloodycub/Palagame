@@ -1,0 +1,25 @@
+import pyautogui
+
+colors = []
+
+def check_mouse_color():
+    while True:
+        pyautogui.sleep(3)
+        # Get the current mouse position
+        x, y = pyautogui.position()
+
+        # Get the color of the pixel at the current mouse position
+        pixel_color = pyautogui.pixel(x, y)
+
+        # Output the RGB values of the pixel color
+        print(f"Pixel color at ({x}, {y}): {pixel_color}")
+        colors.append((x, y, pixel_color))
+
+if __name__ == "__main__":
+    print("Move your mouse to different positions. Press Ctrl+C to exit.")
+    try:
+        check_mouse_color()
+    except KeyboardInterrupt:
+        print("(Location) + (Color)")
+        print(colors)
+        print("\nExiting...")

@@ -23,9 +23,6 @@ def getpoints(array):
 
         return lengths
 
-
-
-
     def transpose(matrix):
         return [[matrix[j][i] for j in range(len(matrix))] for i in range(len(matrix[0]))]
 
@@ -98,12 +95,15 @@ def getbestmove(array, iterations):
 
     moves: list[int|list[int]] = []
 
+    crab_present = any(70 in row for row in array)
+
     for y in range(len(array)):
         for x in range(len(array[y]) - 1):
-            result_array = swap([x, y])
-            points = getpoints(result_array)
-            move = [points, [x,y]]
-            moves.append(move)
+            if (not crab_present) or (array[y][x] != 70 and array[y][x+1] != 70):  # Check for Crab move only if Crab is on screen
+                result_array = swap([x, y])
+                points = getpoints(result_array)
+                move = [points, [x, y]]
+                moves.append(move)
 
     if iterations > 0:
         for i in range(len(moves)-1, 0, -1):
