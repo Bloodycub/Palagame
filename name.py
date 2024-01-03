@@ -1,10 +1,9 @@
 import pygetwindow as gw
 import pyautogui
+import time
 import jotain
 import keyboard
-import threading
-import os
-import time
+import sys
 
 RESET = '\033[0m'
 BLUE = '\033[34m'
@@ -18,8 +17,6 @@ BRIGHT_YELLOW = '\033[93m'
 BG_MAGENTA = '\033[45m'
 
 STOP_FLAG = False
-PAUSE_FLAG = False
-stop_sleep_event = threading.Event()
 
 gamestate : list[list[int]] = []
 
@@ -81,15 +78,9 @@ def get_pixel_color(x_coordinate, y_coordinate):
     elif(check_color(pixel_color,(21, 191, 199)) or  check_color(pixel_color,(9, 122, 177))): # greencircle
         print_colored_text("¤",BG_MAGENTA)
         return 6
-    elif(check_color(pixel_color,(12, 211, 187))): # Octupus Fish
-        print_colored_text("¤",BRIGHT_YELLOW)
-        return 68
     elif(check_color(pixel_color,(145, 132, 83)) or  check_color(pixel_color,(59, 98, 130))): # puffer Fish
         print_colored_text("¤",BRIGHT_YELLOW)
         return 69
-    elif(check_color(pixel_color,(1, 46, 97))): # Crab Fish
-        print_colored_text("¤",BLUE)
-        return 70
     else:
         return -1
 
@@ -103,9 +94,9 @@ def get_all_pixel_colors(window):
         for x in range(6):
             xcoord, ycoord = get_piece_coordinate(window, x+1, y+1)
             piece = get_pixel_color(xcoord, ycoord) # get_pixel_color_rgb Print For Values
-            _ = get_pixel_color_rgb(xcoord, ycoord) # get_pixel_color_rgb Print For Values
+            # _ = get_pixel_color_rgb(xcoord, ycoord) # get_pixel_color_rgb Print For Values
             gamestate[y][x] = piece
-        print("")
+        # print("")
 
 def ifpause():
     for y in range(12):
@@ -116,25 +107,15 @@ def ifpause():
 
 def on_key_event(k):
     global STOP_FLAG
-    global PAUSE_FLAG
-
     if k.name == "esc":
         print("Stopping the script...")
         STOP_FLAG = True
-        os._exit(0)
-    if k.name == "p":
-        print("Paused Script")
-        PAUSE_FLAG = True
-    if k.name == "r":
-        print("Stopping sleep...")
-        stop_sleep_event.set()
-        PAUSE_FLAG = False
 
 
 if __name__ == "__main__":
     keyboard.hook(on_key_event)
     full_window_title = "Puzzle Pirates - Yolomaister on the Emerald ocean"  # Replace with your actual game window title
-#
+
     print("Starting bot...")
 
     # Initialize gamestate array with 6x12 matrix of zeros
@@ -146,15 +127,13 @@ if __name__ == "__main__":
 
     if window:
         window.activate() # Opens windows and uses.
+
         # get piece coordinates and store them in x, y variables
         x, y = get_piece_coordinate(window, 1, 1)
 
         # move mouse to coordinates with 0.5 second delay
         # left click
        # pyautogui.click()
-    while not PAUSE_FLAG:
-        if PAUSE_FLAG:
-            pyautogui.sleep(120)
         while not STOP_FLAG:
             get_all_pixel_colors(window)
             if ifpause():
@@ -163,7 +142,6 @@ if __name__ == "__main__":
             pufferxy = jotain.checkpuffer(gamestate)
             if pufferxy != (-1,-1):
                 x, y = get_piece_coordinate(window, pufferxy[0]+1,pufferxy[1]+1)
-                # TODO: if score board visible sleep
                 pyautogui.moveTo(x, y, duration=0.5)
                 pyautogui.click()
                 pyautogui.sleep(2)
@@ -176,11 +154,10 @@ if __name__ == "__main__":
                 x, y = get_piece_coordinate(window, bestmove[i][0]+1, bestmove[i][1]+1)
                 x += 10
                 pyautogui.moveTo(x, y, duration=0.2)
-                # TODO: if score board visible sleep
                 pyautogui.click()
                 pyautogui.sleep(0.1)
 
-            #pyautogui.sleep(2)
+            pyautogui.sleep(2)
 
-else:
-    print(f"Game window with title '{full_window_title}' not found.")
+    else:
+        print(f"Game window with title '{full_window_title}' not found.")

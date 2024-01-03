@@ -80,6 +80,11 @@ def checkpuffer(array):
             if array[y][x] == 69:
                 return (x,y)
     return (-1,-1)
+def checkscorebord(array):
+    for y in range(12):
+        for x in range(6):
+            if array[y][x] == 100:
+                return bool
 
 def getbestmove(array, iterations):
     # if a move set above this score is found, immediately stop calculating
