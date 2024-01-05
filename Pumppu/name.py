@@ -78,9 +78,15 @@ def get_pixel_color(x_coordinate, y_coordinate):
     elif(check_color(pixel_color,(21, 191, 199)) or  check_color(pixel_color,(9, 122, 177))): # greencircle
         print_colored_text("¤",BG_MAGENTA)
         return 6
+    elif(check_color(pixel_color,(12, 211, 187))): # Octupus Fish
+        print_colored_text("¤",BRIGHT_YELLOW)
+        return 68
     elif(check_color(pixel_color,(145, 132, 83)) or  check_color(pixel_color,(59, 98, 130))): # puffer Fish
         print_colored_text("¤",BRIGHT_YELLOW)
         return 69
+    elif(check_color(pixel_color,(1, 46, 97))): # Crab Fish
+        print_colored_text("¤",BLUE)
+        return 70
     else:
         return -1
 
