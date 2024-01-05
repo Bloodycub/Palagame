@@ -231,4 +231,3 @@ missing module named PyQt4 - imported by pyperclip (delayed, conditional, option
 missing module named PyQt5 - imported by pyperclip (delayed, conditional, optional)
 missing module named qtpy - imported by pyperclip (delayed, conditional, optional)
 missing module named gtk - imported by pyperclip (delayed, conditional, optional)
-missing module named cv2 - imported by pyscreeze (optional)
