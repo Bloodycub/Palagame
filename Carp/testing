@@ -1,0 +1,23 @@
+from skimage import io, filters, transform
+import os
+
+# Specify the image file name or path
+image_filename = 'FatPice.png'  # Replace with the actual name of your image file
+
+# Construct the full path to the image
+image_path = os.path.join(os.getcwd(), 'img', image_filename)
+
+# Load the image
+image = io.imread(image_path)
+
+# Apply Gaussian blur
+blurred_image = filters.gaussian(image, sigma=1.0)
+
+# Resize the image
+resized_image = transform.resize(blurred_image, (300, 400))
+
+# Specify the full path to save the processed image
+save_path = os.path.join(os.getcwd(), 'path', 'to', 'save', 'processed_image.jpg')
+
+# Save the processed image
+io.imsave(save_path, resized_image)

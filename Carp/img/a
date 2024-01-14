@@ -1,0 +1,3 @@
+import cv2
+
+print("v", cv2.__verison__)
