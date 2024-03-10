@@ -46,8 +46,8 @@ def getpoints(array):
 
         if multiplier == 4:
             multiplier = 4.5
-            if 5 in lines:
-                multiplier = 6
+        if 5 in lines:
+            multiplier = 6
 
         for line in lines:
             if line == 3:
@@ -89,7 +89,7 @@ def checkscorebord(array):
 def getbestmove(array, iterations):
     # if a move set above this score is found, immediately stop calculating
     # treshold of 45 means AT LEAST 15 points per move
-    treshold_score = 666
+    treshold_score = 2000
 
     def swap(listxy):
         x, y = listxy
@@ -150,7 +150,7 @@ if __name__ == "__main__":
     cProfile.run('getbestmove(example_array, 2)')
     start_time = time.time()
 
-    bestmove = getbestmove(example_array, 2)
+    bestmove = getbestmove(example_array, 3)
     print("Best move gives score:",bestmove[0])
     print("Swaps to make:")
     for i in range(1,len(bestmove)):

@@ -1,9 +1,7 @@
 import pygetwindow as gw
 import pyautogui
-import time
 import jotain
 import keyboard
-import sys
 
 RESET = '\033[0m'
 BLUE = '\033[34m'
@@ -78,7 +76,10 @@ def get_pixel_color(x_coordinate, y_coordinate):
     elif(check_color(pixel_color,(21, 191, 199)) or  check_color(pixel_color,(9, 122, 177))): # greencircle
         print_colored_text("¤",BG_MAGENTA)
         return 6
-    elif(check_color(pixel_color,(12, 211, 187))): # Octupus Fish
+    elif(check_color(pixel_color,(8, 123, 235)) or  check_color(pixel_color,(4, 95, 191))): # greencircle
+        print_colored_text("¤",BG_MAGENTA)
+        return 7
+    elif(check_color(pixel_color,(12, 211, 187)) or  check_color(pixel_color,(5, 130, 172))): # Octupus Fish
         print_colored_text("¤",BRIGHT_YELLOW)
         return 68
     elif(check_color(pixel_color,(145, 132, 83)) or  check_color(pixel_color,(59, 98, 130))): # puffer Fish
@@ -90,6 +91,9 @@ def get_pixel_color(x_coordinate, y_coordinate):
     else:
         return -1
 
+
+
+
 def get_pixel_color_rgb(x, y):
     pixel_color = pyautogui.pixel(x, y)
     print(pixel_color, end=" ")
@@ -100,9 +104,10 @@ def get_all_pixel_colors(window):
         for x in range(6):
             xcoord, ycoord = get_piece_coordinate(window, x+1, y+1)
             piece = get_pixel_color(xcoord, ycoord) # get_pixel_color_rgb Print For Values
-            # _ = get_pixel_color_rgb(xcoord, ycoord) # get_pixel_color_rgb Print For Values
+            #piece =            get_pixel_color_rgb(xcoord, ycoord) # get_pixel_color_rgb Print For Values
+
             gamestate[y][x] = piece
-        # print("")
+        #print("")
 
 def ifpause():
     for y in range(12):
@@ -142,17 +147,18 @@ if __name__ == "__main__":
        # pyautogui.click()
         while not STOP_FLAG:
             get_all_pixel_colors(window)
-            if ifpause():
-                pyautogui.sleep(2)
-                continue
+            #if ifpause():
+               # print("Sleeping...")
+               # pyautogui.sleep(2)
+                #continue
             pufferxy = jotain.checkpuffer(gamestate)
             if pufferxy != (-1,-1):
                 x, y = get_piece_coordinate(window, pufferxy[0]+1,pufferxy[1]+1)
                 pyautogui.moveTo(x, y, duration=0.5)
                 pyautogui.click()
-                pyautogui.sleep(2)
                 continue
-            bestmove = jotain.getbestmove(gamestate, 2)
+            bestmove = jotain.getbestmove(gamestate, 2) # How many moves + 1
+
             print("Best move gives score:",bestmove[0])
             print("Swaps to make:")
             for i in range(1,len(bestmove)):
@@ -161,9 +167,7 @@ if __name__ == "__main__":
                 x += 10
                 pyautogui.moveTo(x, y, duration=0.2)
                 pyautogui.click()
-                pyautogui.sleep(0.1)
-
-            pyautogui.sleep(2)
-
+                pyautogui.sleep(0.3)
+        pyautogui.sleep(1.7)
     else:
         print(f"Game window with title '{full_window_title}' not found.")
